@@ -1,0 +1,33 @@
+{
+	"login_dev":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	},
+	"login":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[],
+		"layout":false
+	},
+	"forgot_password":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	},
+	"reset_password":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	},
+	"login_otp":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	}
+}

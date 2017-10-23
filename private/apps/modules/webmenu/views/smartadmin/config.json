@@ -1,0 +1,30 @@
+{
+	"index":
+	{
+		"custom_js_files":[
+							"..\/..\/js\/plugins\/jquery-redirect\/jquery.redirect.js",
+							"..\/..\/js\/plugins\/jquery-chained\/jquery.chained.js",
+							"js\/plugin\/jquery-nestable\/jquery.nestable.min.js"
+						],
+		"custom_css_files":[],
+		"asides":[]
+	},
+	"detail":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	},
+	"add":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	},
+	"edit":
+	{
+		"custom_js_files":[],
+		"custom_css_files":[],
+		"asides":[]
+	}
+}

@@ -1,0 +1,200 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+::-webkit-input-placeholder { color: #e4e3e3 !important; }
+::-moz-placeholder { color: #e4e3e3 !important; }
+:-moz-placeholder { color: #e4e3e3 !important; }
+:-ms-input-placeholder { color: #e4e3e3 !important; }
+input:-moz-placeholder { color: #e4e3e3 !important;  }
+
+.strong
+{
+	font-weight: bold !important;
+}
+
+.required
+{
+	color: #f00;
+}
+
+.modal-header
+{
+    background: rgba(248,248,248,.9);
+}
+
+.modal-title
+{
+    font-weight: bold;
+}
+
+.smart-form table.dataTable .label
+{
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+#dt_webmodules_method_wrapper
+{
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+#dt_webmodules_method_wrapper .dt-toolbar-footer
+{
+    padding: 7px;
+}
+
+#dt_webmodules_method_length,
+#dt_webmodules_method_filter label
+{
+    margin: 7px;
+}
+
+#dt_webmodules_method_wrapper .dataTables_filter .input-group-addon {
+    width: 16px;
+    float: left;
+    height: 16px;
+}
+
+fieldset#webmodules_method
+{
+    padding: 0px !important;
+}
+
+section.button-clone
+{
+    float: right !important;
+    padding-left: 13px !important;
+}
+
+.row_method hr
+{
+    border-top: 1px solid #969696 !important;
+}
+
+fieldset#webmodules_method section
+{
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+fieldset#webmodules_method div.row_method .row
+{
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 14px;
+}
+
+fieldset#webmodules_method .row_method:first-of-type
+{
+    border-top: 1px solid #969696 !important;
+}
+
+div.row_method:nth-child(odd)
+{
+    background-color: #fff;
+}
+
+div.row_method:nth-child(even)
+{
+    background-color: #f9f9f9;
+}
+
+fieldset#webmodules_method div.row_method .row section > .row,
+fieldset#webmodules_method div.row_method .row + .row
+{
+    padding-top: 0px;
+}
+
+
+fieldset#webmodules_method .row_method:last-child
+{
+    border-bottom: none !important;
+}
+
+.dd3-handle
+{
+    width: 5px;
+}
+
+.dd3-content
+{
+    padding: 0px 10px 0px 0px;
+}
+
+.smart-accordion-default.panel-group .panel-title a
+{
+    padding: 7px 5px 7px 40px;
+}
+
+#accordion-modules.smart-accordion-default.panel-group .panel-title a
+{
+    padding-left: 15px !important;
+}
+
+#accordion-modules.smart-accordion-default.panel-group .panel-body ul
+{
+    list-style: none;
+}
+
+#accordion-modules.smart-accordion-default.panel-group .panel-body ul li
+{
+    padding: 4px 6px 3px 5px;
+    margin-bottom: 5px;
+    line-height: 23px;
+}
+
+#accordion-modules.smart-accordion-default.panel-group .panel-body ul li:hover
+{
+    background-color: #f9f9f9;
+}
+
+#accordion-modules.smart-accordion-default .panel-default>.panel-heading
+{
+    background-color: #ebebeb;
+}
+
+#accordion-modules.smart-accordion-default .panel-default>.panel-heading:hover
+{
+    background-color: #cacaca;
+}
+
+.dd-list .dd-list
+{
+    padding-left: 36px;
+}
+
+.dd3-item>button
+{
+    margin-left: 0px;
+}
+
+#wid-id-webmenu-index-menu-0 .smart-form #nestable ol.dd-list li.dd-item.dd3-item .dd3-content
+{
+    padding: 0px !important;
+}
