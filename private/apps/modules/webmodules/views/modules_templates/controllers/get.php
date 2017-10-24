@@ -1,4 +1,5 @@
-	public function get()
+
+	<?=$method_type?> function <?=$webmodules_method?>()
 	{
 		if(@$this->input->get_post('format') == 'datatables')
 		{

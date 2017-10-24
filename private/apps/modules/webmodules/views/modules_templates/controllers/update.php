@@ -1,5 +1,5 @@
 
-	public function update()
+	<?=$method_type?> function <?=$webmodules_method?>()
 	{
 		if($this->input->method() == 'post')
 		{
@@ -58,11 +58,11 @@ echo "			\$this->form_validation->set_rules('".$field->name."', \$this->lang->li
 
 		        if($update)
 				{
-	        		return array('code'=>200,'class'=>'success','icon'=>'check','status'=>'success','text'=>$this->lang->line('notification_update_success')');
+	        		return array('code'=>200,'class'=>'success','icon'=>'check','status'=>'success','text'=>$this->lang->line('notification_update_success'));
 				}
 				else
 				{
-	        		return array('code'=>406,'class'=>'danger','icon'=>'times','status'=>'error','text'=>$this->lang->line('notification_update_failed')');
+	        		return array('code'=>406,'class'=>'danger','icon'=>'times','status'=>'error','text'=>$this->lang->line('notification_update_failed'));
 				}
 			}
 			else
@@ -89,4 +89,3 @@ echo "				if(form_error('".$field->name."',' ',' ') <> ''){ \$alert['".$field->n
 			return array('code'=>405,'class'=>'danger','icon'=>'times','status'=>'error','text'=>$this->lang->line('notification_update_failed'));
 	    }
     }
-

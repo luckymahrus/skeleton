@@ -1,5 +1,5 @@
 
-	private function _delete($id=NULL)
+	<?=$method_type?> function <?=$webmodules_method?>($id=NULL)
 	{
 		if($id === NULL)
 		{

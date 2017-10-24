@@ -1,5 +1,5 @@
 
-	public function delete()
+	<?=$method_type?> function <?=$webmodules_method?>()
 	{
 		if($this->input->method() == 'post')
 		{

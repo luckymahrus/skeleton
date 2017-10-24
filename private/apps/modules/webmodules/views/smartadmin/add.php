@@ -164,6 +164,7 @@
 								<?php
 									$fncs		= array('get','detail','get_detail','add','insert','edit','update','activate','deactivate','_change_status','delete','_delete','_form_input');
 									$fncsTypes	= array('public','public','public','public','public','public','public','public','public','private','public','private','private');
+									$createView	= array(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE);
 
 									foreach($fncs as $idxF => $fnc)
 									{
@@ -175,6 +176,8 @@
 										$webmodules_method['name']			= 'webmodules_method['.$idxF.']';
 										$method_type['selected']			= $fncsTypes[$idxF];
 										$method_type['name']				= 'method_type['.$idxF.']';
+										$create_view['selected']			= $createView[$idxF];
+										$create_view['name']				= 'create_view['.$idxF.']';
 								?>
 								<div class="row_method" id="method-<?=$idxF?>">
 									<div class="row">
@@ -208,7 +211,7 @@
 													{
 														foreach ($values2 as $idxV2 => $row2)
 														{
-															echo '<label class="checkbox'.(($method_type['selected'] <> 'public') ? ' state-disabled' : '').'"><input type="checkbox" name="'.$method_groups_access['name'].'" value="'.$idxV2.'"'.(($method_type['selected'] <> 'public') ? ' disabled' : '').'><i></i>'.$row2.'</label>';
+															echo '<label class="checkbox'.(($method_type['selected'] <> 'public') ? ' state-disabled' : '').'"><input type="checkbox" class="method_groups_access" name="'.$method_groups_access['name'].'" value="'.$idxV2.'"'.(($method_type['selected'] <> 'public') ? ' disabled' : '').'><i></i>'.$row2.'</label>';
 														}
 													}
 													echo '</div>';
@@ -243,7 +246,7 @@
 										<section class="col col-3">
 											<label class="label strong">&nbsp;</label>
 											<div class="row">
-												<label class="checkbox<?=(($method_type['selected'] <> 'public') ? ' state-disabled' : '')?>"><input type="checkbox" name="<?=$create_view['name']?>"<?=(($method_type['selected'] <> 'public') ? ' disabled' : '')?>><i></i><?=$create_view['data']?></label>
+												<label class="checkbox<?=(($method_type['selected'] <> 'public') ? ' state-disabled' : '')?>"><input type="checkbox" class="create_view" name="<?=$create_view['name']?>"<?=(($method_type['selected'] <> 'public') ? ' disabled' : (($create_view['selected'] == TRUE) ? ' checked' : ''))?>><i></i><?=$create_view['data']?></label>
 											</div>
 										</section>
 									</div>
@@ -434,6 +437,12 @@
 				'				</select>'+
 				'			</label>'+
 				'		</section>'+
+				'		<section class="col col-3">'+
+				'			<label class="label strong">&nbsp;</label>'+
+				'			<div class="row">'+
+				'				<label class="checkbox"><input type="checkbox" class="create_view" name="create_view[\'+totalMethod+\']"><i></i><?=$create_view['data']?></label>'+
+				'			</div>'+
+				'		</section>'+
 				'	</div>'+
 				'	<hr>'+
 				'</div>';
@@ -473,7 +482,8 @@
 				row.attr('id','method-'+key);
 				row.find('input[type=text].webmodules_method_title').attr('name','webmodules_method_title['+key+']').attr('id','webmodules_method_title-'+key);
 				row.find('input[type=text].webmodules_method').attr('name','webmodules_method['+key+']').attr('id','webmodules_method-'+key);
-				row.find('input[type=checkbox]').attr('name','method_groups_access['+key+'][]');
+				row.find('input[type=checkbox].method_groups_access').attr('name','method_groups_access['+key+'][]');
+				row.find('input[type=checkbox].create_view').attr('name','create_view['+key+']');
 				row.find('select').attr('name','method_type['+key+']').attr('id','method_type-'+key);
 			});
 		});

@@ -1,5 +1,5 @@
 
-	public function detail($id=NULL)
+	<?=$method_type?> function <?=$webmodules_method?>($id=NULL)
 	{
 		if($this->input->is_ajax_request())
 		{
@@ -39,12 +39,12 @@
 			$this->data['<?=$model_name?>']	= $<?=$model_name?>;
 			$this->data['<?=$table_pkey?>']	= $<?=$model_name?>-><?=$table_pkey?>;
 
-			<?php
+<?php
 			if($table_fields && count($table_fields) > 0)
 			{
 				foreach ($table_fields as $idxTF => $field)
 				{
-					if($field->name <> '_created_by' && $field->name <> '_updated_by' && $field->name <> '_created_at' && $field->name <> '_updated_at' && $field->name <> 'is_deleted')
+					if($field->name <> $table_pkey && $field->name <> '_created_by' && $field->name <> '_updated_by' && $field->name <> '_created_at' && $field->name <> '_updated_at' && $field->name <> 'is_deleted')
 					{
 						if(($field->type == 'smallint' || $field->type == 'tinyint') && $field->max_length <= 2)
 						{

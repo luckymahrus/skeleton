@@ -1,5 +1,5 @@
 
-	public function add()
+	<?=$method_type?> function <?=$webmodules_method?>()
 	{
 		if($this->input->is_ajax_request())
 		{

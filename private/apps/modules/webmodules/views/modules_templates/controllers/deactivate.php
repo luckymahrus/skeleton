@@ -1,5 +1,5 @@
 
-	public function deactivate()
+	<?=$method_type?> function <?=$webmodules_method?>()
 	{
 		if($this->input->method() == 'post')
 		{

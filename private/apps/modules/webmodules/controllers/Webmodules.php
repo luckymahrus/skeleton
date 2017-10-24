@@ -226,6 +226,33 @@ class Webmodules extends APP_Controller
 
 		        if($insert)
 				{
+			        $arrmodules     = $this->config->item('modules_locations');
+			        if(!empty($arrmodules) && is_array($arrmodules))    $modules    = array_keys($arrmodules);
+
+	            	if(isset($data['db_model']) && $data['db_model'] <> '0')
+	            	{
+	            		$this->load->model($data['db_model'].'_model',$data['db_model']);
+
+						$mainControllerData['model_name'] = $data['db_model'];
+
+						$table_fields = $this->db->field_data($this->{$data['db_model']}->table());
+						$mainControllerData['table_fields'] = $table_fields;
+						$arrField	= array();
+						foreach ($table_fields as $idxF => $field)
+						{
+							$arrField[$field->name]	= $field->name;
+						}
+
+						if(in_array($this->{$data['db_model']}->table().'_id', $arrField))
+						{
+							$mainControllerData['table_pkey'] = $this->{$data['db_model']}->table().'_id';
+						}
+						else
+						{
+							$mainControllerData['table_pkey'] = 'id';
+						}
+	            	}
+
 					$jsonConfigFile['index']['custom_js_files'][]	= '../../js/plugins/jquery-redirect/jquery.redirect.js';
 					$jsonConfigFile['index']['custom_js_files'][]	= 'js/plugins/datatables/jquery.dataTables.min.js';
 					$jsonConfigFile['index']['custom_js_files'][]	= 'js/plugins/datatables/dataTables.colVis.min.js';
@@ -273,21 +300,58 @@ class Webmodules extends APP_Controller
 									$jsonConfigFile[$sqlSubData[$idxMM]['webmodules_method']]['custom_js_files']	= array();
 									$jsonConfigFile[$sqlSubData[$idxMM]['webmodules_method']]['custom_css_files']	= array();
 									$jsonConfigFile[$sqlSubData[$idxMM]['webmodules_method']]['asides']				= array();
+									//$jsonConfigFile[$sqlSubData[$idxMM]['webmodules_method']]['layout']				= ((isset($data['create_view'][$idxMM])) ? (($this->config->item('form_in_ajax_modal') == FALSE) ? FALSE : TRUE) : FALSE);
+									$jsonConfigFile[$sqlSubData[$idxMM]['webmodules_method']]['view']				= ((isset($data['create_view'][$idxMM])) ? TRUE : FALSE);
 								}
 								else
 								{
 									$sqlSubData[$idxMM]['groups_access']			= NULL;
 									$sqlSubData[$idxMM]['webmodules_uri_routes']	= NULL;
 								}
-								$testReturn['child'][$idxMM] = $sqlSubData[$idxMM];
-								$insertmethod 	= $this->webmodules->insert($sqlSubData[$idxMM]);
+								$testReturn['child'][$idxMM] 	= $sqlSubData[$idxMM];
+								$insertmethod 					= $this->webmodules->insert($sqlSubData[$idxMM]);
 
+								$controllerTemplatePath	= FALSE;
+					            if(isset($modules))
+					            {
+					                foreach($modules as $module)
+					                {
+					                    if(file_exists($module.$this->router->class.'/views/modules_templates/controllers/'.$sqlSubData[$idxMM]['webmodules_method'].'.php'))
+					                    {
+					                        $controllerTemplatePath   = $this->router->class . '/modules_templates/controllers/' . $sqlSubData[$idxMM]['webmodules_method']; break;
+					                    }
+					                    else if(file_exists(APPPATH.'views/'.$this->router->class.'/modules_templates/controllers/'.$sqlSubData[$idxMM]['webmodules_method'].'.php'))
+					                    {
+					                        $controllerTemplatePath   = $this->router->class . '/modules_templates/controllers/' .$sqlSubData[$idxMM]['webmodules_method']; break;
+					                    }
+					                }
+
+					            }
+					            else
+					            {
+					                $controllerTemplatePath   = (($custom_view != "" && (file_exists(APPPATH.'views/'.$this->router->class.'/modules_templates/controllers/'.$sqlSubData[$idxMM]['webmodules_method'].'.php') || file_exists(APPPATH.'views/'.$custom_view.'.php'))) ? $custom_view : ((file_exists(APPPATH.'views/'.$this->router->class.'/'.$this->router->method.'.php')) ? ($this->router->class . '/' . $this->router->method) : FALSE));
+					            }
+
+					            if ($controllerTemplatePath != FALSE)
+					            {
+					            	if(isset($data['db_model']) && $data['db_model'] <> '0')
+					            	{
+					            		$controllerData[$idxMM]							= $mainControllerData;
+								        $controllerData[$idxMM]['webmodules_title'] 	= $sqlSubData[$idxMM]['webmodules_title'];
+								        $controllerData[$idxMM]['method_type'] 			= $data['method_type'][$idxMM];
+								        $controllerData[$idxMM]['webmodules_method'] 	= strtolower($data['webmodules_method'][$idxMM]);
+						                $controllerFileDataFunction .= $this->load->view($controllerTemplatePath, $controllerData[$idxMM], TRUE);
+					            	}
+					            }
+					            else
+					            {
 $controllerFileDataFunction .= '
-
 	'.$data['method_type'][$idxMM].' function '.strtolower($data['webmodules_method'][$idxMM]).'()
 	{
 		
-	}';
+	}
+	';
+					            }
 							}
 						}
 					}
@@ -326,6 +390,8 @@ $fileFooter = '
 
 $controllerFileData = 'class '.ucfirst($sqlData['webmodules_class']).' extends APP_Controller
 {
+	'.((isset($data['db_model']) && $data['db_model'] <> '0') ? 'protected $models = array(\''.$data['db_model'].'\');' : '').'
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -334,8 +400,10 @@ $controllerFileData = 'class '.ucfirst($sqlData['webmodules_class']).' extends A
 	public function index()
 	{
 		
-    }'.@$controllerFileDataFunction.'
+    }
+    '.@$controllerFileDataFunction.'
 }';
+echo "1<br><pre>";print_r($modulesPath.'controllers/');echo "</pre>";
 
 					check_file(array('server_path'=>$modulesPath.'controllers/','name'=>ucfirst($sqlData['webmodules_class']).'.php'),true,sprintf($fileHeading,'controllers').$controllerFileData.sprintf($fileFooter,'controllers'));
 					check_dir($modulesPath.'language/');
@@ -352,24 +420,58 @@ $controllerFileData = 'class '.ucfirst($sqlData['webmodules_class']).' extends A
 						{
 							check_dir($modulesPath.'views/'.$themes->webthemes_name.'/');
 							check_file(array('server_path'=>$modulesPath.'views/'.$themes->webthemes_name.'/','name'=>'index.php'),true,'<?php defined(\'BASEPATH\') OR exit(\'No direct script access allowed\'); ?>');
+							check_file(array('server_path'=>$modulesPath.'views/'.$themes->webthemes_name.'/','name'=>'index_script.php'),true,'<?php defined(\'BASEPATH\') OR exit(\'No direct script access allowed\'); ?>');
 							check_file(array('server_path'=>$modulesPath.'views/'.$themes->webthemes_name.'/','name'=>'config.json'),true,json_encode($jsonConfigFile));
 							if(isset($data['webmodules_method']) && count($data['webmodules_method']) > 0)
 							{
 								foreach ($data['webmodules_method'] as $idxMM => $method)
 								{
-									if(isset($data['webmodules_method'][$idxMM]) && !empty($data['webmodules_method'][$idxMM]) && !is_null($data['webmodules_method'][$idxMM]) && $data['method_type'][$idxMM] == 'public')
+									$viewFileData = '';
+									if(isset($data['webmodules_method'][$idxMM]) && !empty($data['webmodules_method'][$idxMM]) && !is_null($data['webmodules_method'][$idxMM]) && $data['method_type'][$idxMM] == 'public' && isset($data['create_view'][$idxMM]))
 									{
-										check_file(array('server_path'=>$modulesPath.'views/'.$themes->webthemes_name.'/','name'=>$data['webmodules_method'][$idxMM].'.php'),true,'<?php defined(\'BASEPATH\') OR exit(\'No direct script access allowed\'); ?>');
+										$viewFileData .= '<?php defined(\'BASEPATH\') OR exit(\'No direct script access allowed\'); ?>';
+										$viewTemplatePath	= FALSE;
+							            if(isset($modules))
+							            {
+							                foreach($modules as $module)
+							                {
+							                    if(file_exists($module.$this->router->class.'/views/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").'modules_templates/views/'.$data['webmodules_method'][$idxMM].'.php'))
+							                    {
+							                        $viewTemplatePath   = $this->router->class . '/' . ((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "") . '/modules_templates/views/' . $data['webmodules_method'][$idxMM]; break;
+							                    }
+							                    else if(file_exists(APPPATH.'views/'.$this->router->class.'/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").'modules_templates/views/'.$data['webmodules_method'][$idxMM].'.php'))
+							                    {
+							                        $viewTemplatePath   = $this->router->class . '/' . ((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "") . '/modules_templates/views/' .$data['webmodules_method'][$idxMM]; break;
+							                    }
+							                }
+
+							            }
+							            else
+							            {
+							                $viewTemplatePath   = (($custom_view != "" && (file_exists(APPPATH.'views/'.$this->router->class.'/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").'/modules_templates/views/'.$data['webmodules_method'][$idxMM].'.php') || file_exists(APPPATH.'views/'.$custom_view.'.php'))) ? $custom_view : ((file_exists(APPPATH.'views/'.$this->router->class.'/'.$this->router->method.'.php')) ? ($this->router->class . '/' . $this->router->method) : FALSE));
+							            }
+
+							            if ($viewTemplatePath != FALSE)
+							            {
+							            	if(isset($data['db_model']) && $data['db_model'] <> '0')
+							            	{
+								                $viewFileData .= $this->load->view($viewTemplatePath, $controllerData[$idxMM], TRUE);
+							            	}
+							            }
+										check_file(array('server_path'=>$modulesPath.'views/'.$themes->webthemes_name.'/','name'=>$data['webmodules_method'][$idxMM].'.php'),true,$viewFileData);
 									}
 								}
 							}
 						}
 					}
+exit;
 
 	        		return array('code'=>200,'class'=>'success','icon'=>'check','status'=>'success','text'=>'Module successfully added!','test'=>@$testReturn);
 				}
 				else
 				{
+echo "2<br><pre>";print_r($testReturn);echo "</pre>";
+exit;
 	        		return array('code'=>406,'class'=>'danger','icon'=>'times','status'=>'error','text'=>'Failed to add module!','test'=>@$testReturn);
 				}
 			}
@@ -384,11 +486,15 @@ $controllerFileData = 'class '.ucfirst($sqlData['webmodules_class']).' extends A
 				if(form_error('editable',' ',' ') <> '')				{ $alert['editable']				= form_error('editable',' ',' '); 				}
 				if(form_error('removeable',' ',' ') <> '')				{ $alert['removeable']				= form_error('removeable',' ',' '); 			}
 
+echo "3<br><pre>";print_r($alert);echo "</pre>";
+exit;
 				return array('code'=>400,'class'=>'danger','icon'=>'times','status'=>'error','text'=>validation_errors(),'data'=>@$alert,'test'=>@$testReturn);
 		    }
 		}   	
 		else
 		{
+echo "4<br><pre>";print_r($testReturn);echo "</pre>";
+exit;
 			return array('code'=>405,'class'=>'danger','icon'=>'times','status'=>'error','text'=>'Failed to add module!','test'=>@$testReturn);
 	    }
     }
@@ -882,7 +988,7 @@ $controllerFileData = 'class '.ucfirst($sqlData['webmodules_class']).' extends A
 		$this->load->helper('file');
 
 		$modelFiles = check_dir(APPPATH.'models/','array');
-		$db_modelData[]	= 'No Model Selected';
+		$db_modelData[0]	= 'No Model Selected';
 		if($modelFiles && count($modelFiles) > 0)
 		{
 			foreach ($modelFiles as $idxMF => $modelFile)

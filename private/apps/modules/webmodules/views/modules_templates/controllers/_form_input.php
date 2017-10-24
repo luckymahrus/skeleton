@@ -1,5 +1,5 @@
 
-    private function _form_input()
+    <?=$method_type?> function <?=$webmodules_method?>()
     {
 <?php
 if($table_fields && count($table_fields) > 0)

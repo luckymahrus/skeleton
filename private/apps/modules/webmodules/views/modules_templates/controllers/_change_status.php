@@ -1,5 +1,5 @@
 
-	private function _change_status($id=NULL,$status=0)
+	<?=$method_type?> function <?=$webmodules_method?>($id=NULL,$status=0)
 	{
 		if($id === NULL)
 		{

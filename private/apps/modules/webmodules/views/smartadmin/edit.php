@@ -332,7 +332,7 @@
 							
 							<footer>
 								<button type="submit" class="btn btn-primary">
-									<?=$this->lang->line('label_btn_submit')?>
+									<?=$this->lang->line('title_btn_update')?>
 								</button>
 <?php if(!$this->input->is_ajax_request()) : ?>
 								<button type="button" class="btn btn-default" onclick="window.history.back();">
