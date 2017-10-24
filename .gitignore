@@ -50,3 +50,5 @@ Temporary Items
 /private/apps/cache/
 /private/apps/logs/
 /private/uploads/
+private/apps/config/database.php
+private/apps/config/database.php
