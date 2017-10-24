@@ -83,13 +83,24 @@ if ( ! function_exists('check_dir'))
 
 if ( ! function_exists('check_file'))
 {	
-	function check_file($filemeta=array())
+	function check_file($filemeta=array(),$createFile=false,$fileData=NULL)
 	{
-		if(is_array($filemeta) && is_file($filemeta['server_path']) && $filemeta['name'] <> 'index.html' && $filemeta['name'] <> '.htaccess')
+		if(is_array($filemeta) && (is_file($filemeta['server_path']) || is_file($filemeta['server_path'].'/'.$filemeta['name']) || is_file($filemeta['server_path'].$filemeta['name'])) && $filemeta['name'] <> 'index.html' && $filemeta['name'] <> '.htaccess')
 		{
 			return true;
 		}
-		return false;
+		else
+		{
+			if($createFile == true)
+			{
+		    	write_file($filemeta['server_path'].$filemeta['name'], $fileData);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 }
 
