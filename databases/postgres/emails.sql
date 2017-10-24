@@ -1,6 +1,6 @@
-/**************************************** DROP TABLE ****************************************/
+/**************************************** DROP TABLE IF EXISTS ****************************************/
 
-DROP TABLE emails;
+DROP TABLE IF EXISTS emails;
 
 
 /**************************************** CREATE TABLE ****************************************/
@@ -8,9 +8,9 @@ DROP TABLE emails;
 CREATE TABLE emails (
     "emails_id" serial PRIMARY KEY NOT NULL,
     "emails_sender_name" character varying(255) NULL DEFAULT NULL,
-    "emails_sender_addess" character varying(255),
+    "emails_sender_address" character varying(255),
     "emails_to_name" character varying(255) NULL DEFAULT NULL,
-    "emails_to_addess" character varying(255),
+    "emails_to_address" character varying(255),
     "emails_send_datetime" integer,
     "emails_subject" character varying(255) NULL DEFAULT NULL,
     "emails_message" TEXT NULL,

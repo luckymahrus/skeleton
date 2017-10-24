@@ -1,7 +1,7 @@
-/**************************************** DROP TABLE ****************************************/
+/**************************************** DROP TABLE IF EXISTS ****************************************/
 
-DROP TABLE IF EXISTS usersgroups;
-DROP TABLE IF EXISTS users_groups;
+DROP TABLE IF EXISTS IF EXISTS usersgroups;
+DROP TABLE IF EXISTS IF EXISTS users_groups;
 
 
 /**************************************** CREATE TABLE ****************************************/
