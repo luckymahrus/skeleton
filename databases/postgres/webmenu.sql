@@ -58,9 +58,7 @@ INSERT INTO webmenu(
     (1, 'webthemes', 'Themes', NULL, 'fa fa-lg fa-fw fa-cogs', 61, NULL, 4, 4, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
     (1, 'webthemesmenu', 'Themes Menus', NULL, 'fa fa-lg fa-fw fa-cogs', 70, NULL, 4, 5, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
     (1, 'webmenu', 'Web Menu', NULL, 'fa fa-lg fa-fw fa-cogs', 52, NULL, 4, 6, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    (1, 'document_index', 'Document Management', NULL, 'fa fa-lg fa-fw fa-file-text', 93, NULL, 0, 5, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    (1, 'parameters_index', 'Parameters Management', NULL, 'fa fa-lg fa-fw fa-cogs', 102, NULL, 0, 5, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    (1, 'products_index', 'Products Management', NULL, 'fa fa-lg fa-fw fa-cogs', 111, NULL, 0, 5, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE)
+    (1, 'document_index', 'Document Management', NULL, 'fa fa-lg fa-fw fa-file-text', 93, NULL, 0, 5, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE)
     ;
     
 ALTER TABLE webmenu RENAME COLUMN added_by TO _created_by;

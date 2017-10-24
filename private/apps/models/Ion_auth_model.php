@@ -1564,9 +1564,9 @@ class Ion_auth_model extends CI_Model
 					return FALSE;
 				}
 
-				$usersgroups = $this->get_usersgroups($user->{$this->tables['users']['primary_key']})->result();
+				$users_groups = $this->get_users_groups($user->{$this->tables['users']['primary_key']})->result();
 				$groups_array = array();
-				foreach ($usersgroups as $group)
+				foreach ($users_groups as $group)
 				{
 					$groups_array[$group->groups_id] = $group->groups_name;
 				}
@@ -2270,8 +2270,8 @@ class Ion_auth_model extends CI_Model
 			{
 				$this->db->distinct();
 				$this->db->join(
-				    $this->tables['usersgroups']['name'],
-				    $this->tables['usersgroups']['name'].'.'.$this->join['users'].'='.$this->tables['users']['name'].'.'. $this->tables['users']['primary_key'],
+				    $this->tables['users_groups']['name'],
+				    $this->tables['users_groups']['name'].'.'.$this->join['users'].'='.$this->tables['users']['name'].'.'. $this->tables['users']['primary_key'],
 				    'inner'
 				);
 			}
@@ -2288,12 +2288,12 @@ class Ion_auth_model extends CI_Model
 			//if group name was used we do one more join with groups
 			if(!empty($group_names))
 			{
-				$this->db->join($this->tables['groups']['name'], $this->tables['usersgroups']['name'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups']['name'] . '.' . $this->tables['groups']['primary_key'], 'inner');
+				$this->db->join($this->tables['groups']['name'], $this->tables['users_groups']['name'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups']['name'] . '.' . $this->tables['groups']['primary_key'], 'inner');
 				$this->db->where_in($this->tables['groups']['name'] . '.groups_name', $group_names);
 			}
 			if(!empty($group_ids))
 			{
-				$this->db->{$or_where_in}($this->tables['usersgroups']['name'].'.'.$this->join['groups'], $group_ids);
+				$this->db->{$or_where_in}($this->tables['users_groups']['name'].'.'.$this->join['groups'], $group_ids);
 			}
 		}
 
@@ -2399,22 +2399,22 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * get_usersgroups
+	 * get_users_groups
 	 *
 	 * @return array
 	 * @author Ben Edmunds
 	 **/
-	public function get_usersgroups($id=FALSE)
+	public function get_users_groups($id=FALSE)
 	{
 		$this->trigger_events('get_users_group');
 
 		//if no id was passed use the current users id
 		$id || $id = $this->session->userdata('users_id');
 
-		return $this->db->select($this->tables['usersgroups']['name'].'.'.$this->join['groups'].' as '.$this->tables['groups']['primary_key'].', '.$this->tables['groups']['name'].'.groups_name, '.$this->tables['groups']['name'].'.groups_description')
-		                ->where($this->tables['usersgroups']['name'].'.'.$this->join['users'], $id)
-		                ->join($this->tables['groups']['name'], $this->tables['usersgroups']['name'].'.'.$this->join['groups'].'='.$this->tables['groups']['name'].'.'. $this->tables['groups']['primary_key'])
-		                ->get($this->tables['usersgroups']['name']);
+		return $this->db->select($this->tables['users_groups']['name'].'.'.$this->join['groups'].' as '.$this->tables['groups']['primary_key'].', '.$this->tables['groups']['name'].'.groups_name, '.$this->tables['groups']['name'].'.groups_description')
+		                ->where($this->tables['users_groups']['name'].'.'.$this->join['users'], $id)
+		                ->join($this->tables['groups']['name'], $this->tables['users_groups']['name'].'.'.$this->join['groups'].'='.$this->tables['groups']['name'].'.'. $this->tables['groups']['primary_key'])
+		                ->get($this->tables['users_groups']['name']);
 	}
 
 	/**
@@ -2441,7 +2441,7 @@ class Ion_auth_model extends CI_Model
 		foreach ($group_ids as $group_id)
 		{
 			$time = time();
-			if ($this->db->insert($this->tables['usersgroups']['name'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id, '_created_by' => $this->session->userdata('users_id'), '_updated_by' => $this->session->userdata('users_id'), '_created_at' => $time, '_updated_at' => $time)))
+			if ($this->db->insert($this->tables['users_groups']['name'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id, '_created_by' => $this->session->userdata('users_id'), '_updated_by' => $this->session->userdata('users_id'), '_created_at' => $time, '_updated_at' => $time)))
 			{
 				if (isset($this->_cache_groups[$group_id])) {
 					$group_name = $this->_cache_groups[$group_id];
@@ -2487,7 +2487,7 @@ class Ion_auth_model extends CI_Model
 
 			foreach($group_ids as $group_id)
 			{
-				$this->db->delete($this->tables['usersgroups']['name'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+				$this->db->delete($this->tables['users_groups']['name'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
 				if (isset($this->_cache_user_in_group[$user_id]) && isset($this->_cache_user_in_group[$user_id][$group_id]))
 				{
 					unset($this->_cache_user_in_group[$user_id][$group_id]);
@@ -2499,7 +2499,7 @@ class Ion_auth_model extends CI_Model
 		// otherwise remove user from all groups
 		else
 		{
-			if ($return = $this->db->delete($this->tables['usersgroups']['name'], array($this->join['users'] => (int)$user_id))) {
+			if ($return = $this->db->delete($this->tables['users_groups']['name'], array($this->join['users'] => (int)$user_id))) {
 				$this->_cache_user_in_group[$user_id] = array();
 			}
 		}
@@ -2887,7 +2887,7 @@ class Ion_auth_model extends CI_Model
 		                  ->where($this->identity_column, get_cookie($this->config->item('identity_cookie_name')))
 		                  ->where('remember_code', get_cookie($this->config->item('remember_cookie_name')))
 		                  ->limit(1)
-	    			  	  ->order_by($this->tables['users']['name'], 'desc')
+	    			  	  ->order_by($this->tables['users']['primary_key'], 'desc')
 		                  ->get($this->tables['users']['name']);
 
 		//if the user was found, sign them in
@@ -3028,7 +3028,7 @@ class Ion_auth_model extends CI_Model
 		$this->db->trans_begin();
 
 		// remove all users from this group
-		$this->db->delete($this->tables['usersgroups']['name'], array($this->join['groups'] => $group_id));
+		$this->db->delete($this->tables['users_groups']['name'], array($this->join['groups'] => $group_id));
 		// remove the group itself
 		$this->db->delete($this->tables['groups']['name'], array($this->tables['groups']['primary_key'] => $group_id));
 

@@ -77,7 +77,7 @@
 			$(this).val($(this).val().toLowerCase().replace(/^[^a-z_]+|[^a-z0-9]+$/ig, ''));
 		});
 
-		$('body').on('click','#modal-<?=$this->router->class?> form#<?=$this->router->class?> fieldset#webmodules_method div.row_method a.add-clone', function (e)
+		$('body').on('click','form#<?=$this->router->class?> fieldset#webmodules_method div.row_method a.add-clone', function (e)
 		{
 			totalMethod++;
 			var base_html_method 	= ''+
@@ -172,7 +172,7 @@
 			});
 		});
 
-		$('body').on('click','#modal-<?=$this->router->class?> form#<?=$this->router->class?> fieldset#webmodules_method div.row_method a.remove-clone', function (e)
+		$('body').on('click','form#<?=$this->router->class?> fieldset#webmodules_method div.row_method a.remove-clone', function (e)
 		{
 			var container = $(this).closest('#webmodules_method');
 			if((container.find('.row_method').length)-1 == 1)

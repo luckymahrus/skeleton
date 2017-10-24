@@ -17,7 +17,7 @@
 
 class Users extends APP_Controller
 {
-	protected $models = array('users','groups','usersgroups');
+	protected $models = array('users','groups','users_groups');
 
 	public function __construct()
 	{
@@ -70,7 +70,7 @@ class Users extends APP_Controller
 
 		if($user)
 		{
-			$groups 		= $this->usersgroups->get_by(array('users_id'=>$id));
+			$groups 		= $this->users_groups->get_by(array('users_id'=>$id));
 
 			$this->data['user']	= $user;
 			$this->data['users_id']	= $user->users_id;
@@ -218,7 +218,7 @@ class Users extends APP_Controller
 
 		if($user)
 		{
-			$groups 		= $this->usersgroups->get_by(array('users_id'=>$id));
+			$groups 		= $this->users_groups->get_by(array('users_id'=>$id));
 
 			$this->data['user']	= $user;
 			$this->data['users_id']	= $user->users_id;
@@ -269,7 +269,7 @@ class Users extends APP_Controller
 
 		        if($update)
 				{
-					$this->usersgroups->update_by(array('users_id'=>$users->users_id),array('groups_id'=>$groupsId));
+					$this->users_groups->update_by(array('users_id'=>$users->users_id),array('groups_id'=>$groupsId));
 
 					if($this->data['allow_reset'] && $data['reset_password'] == '1')
 					{
@@ -475,7 +475,7 @@ class Users extends APP_Controller
 
 			if ($delete)
 			{
-				$this->usersgroups->delete_by(array('users_id'=>$user->users_id));
+				$this->users_groups->delete_by(array('users_id'=>$user->users_id));
 
         		return array('code'=>200,'class'=>'success','icon'=>'check','status'=>'success','text'=>'User successfully removed!');
 			}

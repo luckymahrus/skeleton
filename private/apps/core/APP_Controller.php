@@ -129,14 +129,6 @@ class APP_Controller extends MY_Controller
             {
                 foreach($modules as $module)
                 {
-/*$path = $module.$this->router->class.'/views/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").$this->router->method.'_style.php';
-echo "<pre>";
-print_r($path);
-echo "<br>";
-var_dump(file_exists($path));
-echo "</pre>";*/
-
-
                     if(($custom_style != "" && (file_exists($module.$this->router->class.'/views/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").$custom_style.'.php') || file_exists($module.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").$custom_style.'.php') || file_exists(APPPATH.'views/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").$this->router->class.'/'.$custom_style.'.php') || file_exists(APPPATH.'views/'.((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").$custom_style.'.php'))))
                     {
                         $style = ((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "").$custom_style; break;

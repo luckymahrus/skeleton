@@ -17,7 +17,7 @@
 
 class Groups extends APP_Controller
 {
-	protected $models = array('groups','usersgroups');
+	protected $models = array('groups','users_groups');
 
 	public function __construct()
 	{
@@ -427,7 +427,7 @@ class Groups extends APP_Controller
 		}
 
 		$group		= $this->groups->get_by(array('groups_id'=>$id));
-		$totUser	= $this->usersgroups->count_by(array('groups_id'=>$id));
+		$totUser	= $this->users_groups->count_by(array('groups_id'=>$id));
 
 		if($group)
 		{

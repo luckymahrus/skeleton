@@ -38,22 +38,22 @@ class Users_model extends APP_Model
     public function datatables_customize_filtered()
     {
     	$this->datatables_customize_all();
-        $this->_database->join('usersgroups','usersgroups.users_id=users.users_id','left');
-        $this->_database->join('groups','groups.groups_id=usersgroups.groups_id','left');
+        $this->_database->join('users_groups','users_groups.users_id=users.users_id','left');
+        $this->_database->join('groups','groups.groups_id=users_groups.groups_id','left');
     }
 
     public function datatables_populated($get_filtered_data)
     {
         if($get_filtered_data && count($get_filtered_data) > 0)
         {
-        	$this->load->model('usersgroups_model','usersgroups');
+        	$this->load->model('users_groups_model','users_groups');
             foreach ($get_filtered_data as $idxRow => $row)
             {
                 $groups = array();
-            	$usersgroups = $this->usersgroups->with('groups')->get_many_by('users_id',$row->{$this->primary_key});
-            	if($usersgroups)
+            	$users_groups = $this->users_groups->with('groups')->get_many_by('users_id',$row->{$this->primary_key});
+            	if($users_groups)
             	{
-            		foreach($usersgroups as $idxUG => $group)
+            		foreach($users_groups as $idxUG => $group)
             		{
             			$groups[$group->groups_id]	= $group->groups;
             		}

@@ -157,27 +157,7 @@ INSERT INTO webmodules(
     ('document_edit', 'Edit Web Config', NULL, NULL, 'document', 'edit', 'document/edit', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
     ('document_delete', 'Delete Web Config', NULL, NULL, 'document', 'delete', 'document/delete', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
     ('document_activate', 'Activate Web Config', NULL, NULL, 'document', 'activate', 'document/activate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('document_deactivate', 'Deactivate Web Config', NULL, NULL, 'document', 'deactivate', 'document/deactivate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-
-    ('parameters_index', 'Parameters Management', NULL, NULL, 'parameters', 'index', 'parameters', 0, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_get', 'Get Parameters Data', NULL, NULL, 'parameters', 'get', 'parameters/get', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_detail', 'Web Config Detail', NULL, NULL, 'parameters', 'detail', 'parameters/detail', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_get_detail', 'Get Web Config Detail', NULL, NULL, 'parameters', 'get_detail', 'parameters/get-detail', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_add', 'Add Web Config', NULL, NULL, 'parameters', 'add', 'parameters/add', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_edit', 'Edit Web Config', NULL, NULL, 'parameters', 'edit', 'parameters/edit', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_delete', 'Delete Web Config', NULL, NULL, 'parameters', 'delete', 'parameters/delete', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_activate', 'Activate Web Config', NULL, NULL, 'parameters', 'activate', 'parameters/activate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('parameters_deactivate', 'Deactivate Web Config', NULL, NULL, 'parameters', 'deactivate', 'parameters/deactivate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-
-    ('products_index', 'Products Management', NULL, NULL, 'products', 'index', 'products', 0, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_get', 'Get Products Data', NULL, NULL, 'products', 'get', 'products/get', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_detail', 'Web Config Detail', NULL, NULL, 'products', 'detail', 'products/detail', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_get_detail', 'Get Web Config Detail', NULL, NULL, 'products', 'get_detail', 'products/get-detail', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_add', 'Add Web Config', NULL, NULL, 'products', 'add', 'products/add', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_edit', 'Edit Web Config', NULL, NULL, 'products', 'edit', 'products/edit', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_delete', 'Delete Web Config', NULL, NULL, 'products', 'delete', 'products/delete', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_activate', 'Activate Web Config', NULL, NULL, 'products', 'activate', 'products/activate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE),
-    ('products_deactivate', 'Deactivate Web Config', NULL, NULL, 'products', 'deactivate', 'products/deactivate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE)
+    ('document_deactivate', 'Deactivate Web Config', NULL, NULL, 'document', 'deactivate', 'document/deactivate', 93, TRUE, 'a:1:{i:1;i:1;}', FALSE, FALSE, 0, NULL, NULL, int4(abstime(now())), NULL, NULL, now(), 1, FALSE)
     ;
     
 ALTER TABLE webmodules RENAME COLUMN added_by TO _created_by;

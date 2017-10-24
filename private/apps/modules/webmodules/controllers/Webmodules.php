@@ -26,7 +26,16 @@ class Webmodules extends APP_Controller
 
 	public function index()
 	{
-
+        /*$view   = $this->router->class . '/' . ((isset($this->themes) && $this->themes <> "" && !empty($this->themes)) ? $this->themes : "") .
+        'modules_templates/controllers/insert';
+        $data['webmodules_title'] = 'Test';
+		$data['model_name'] = 'webmodules';
+		$data['table_pkey'] = 'webmodules_id';
+		$data['table_fields'] = $this->db->field_data('webmodules');
+		echo $this->load->view($view, $data, true);
+		echo "<pre>";print_r($view);echo "</pre>";
+		echo "<pre>";print_r($data);echo "</pre>";
+		exit;*/
     }
 
 	public function get()
@@ -389,7 +398,7 @@ $controllerFileData = 'class '.ucfirst($sqlData['webmodules_class']).' extends A
 		if($this->input->is_ajax_request())
 		{
 			$this->layout = FALSE;
-			$this->view = 'edit_ajax';
+			//$this->view = 'edit_ajax';
 		}
 
 		$this->_form_input();

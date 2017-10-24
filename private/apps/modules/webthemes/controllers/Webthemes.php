@@ -362,27 +362,15 @@ class Webthemes extends APP_Controller
 
 		switch($status)
 		{
-			case 0 :
-						$textSuccess 	= 'Themes deactivated!';
-						$textFailed		= 'Failed to deactivate themes!';
-						break;
-			case 1 :
-						$textSuccess 	= 'Themes Activated!';
-						$textFailed		= 'Failed to activate themes!';
-						break;
-			case 2 :
-						$textSuccess 	= 'Themes archived!';
-						$textFailed		= 'Failed to archive themes!';
-						break;
-			case 3 :
-						$textSuccess 	= 'Themes blocked!';
-						$textFailed		= 'Failed to block themes!';
-						break;
-			default :
-						$textSuccess 	= 'Themes status updated!';
-						$textFailed		= 'Failed to change themes status!';
-						break;
+			case 0 	:	$action	= 'deactivate';	break;
+			case 1 	:	$action	= 'activation';	break;
+			case 2 	:	$action	= 'archiving';	break;
+			case 3 	:	$action	= 'blocking';	break;
+			default :	$action	= 'update';		break;
 		}
+
+		$textSuccess 	= $this->lang->line('notification_'.$action.'_success');
+		$textFailed		= $this->lang->line('notification_'.$action.'_failed');
 
 		$webthemes	= $this->webthemes->get_by(array('webthemes_id'=>$id));
 

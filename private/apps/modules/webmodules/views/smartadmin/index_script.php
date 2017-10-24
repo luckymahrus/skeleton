@@ -439,6 +439,10 @@ $allow_method = $this->custom_auth->is_allowed_to('webmodules_method','index');
 			e.preventDefault();
 		})
 		<?php endif; ?>
+
+		<?php if($this->config->item('form_in_ajax_modal') && ($allow_add || $allow_edit)) : ?>
+
+		<?php endif; ?>
 	});
 
 </script>
